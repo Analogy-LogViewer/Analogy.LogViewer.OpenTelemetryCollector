@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Analogy.LogViewer.OpenTelemetryCollector.Otel
 {
-    internal class MetricReporter
+    public class MetricReporter
     {
         private static Lazy<MetricReporter> _instance = new Lazy<MetricReporter>(() => new MetricReporter());
 

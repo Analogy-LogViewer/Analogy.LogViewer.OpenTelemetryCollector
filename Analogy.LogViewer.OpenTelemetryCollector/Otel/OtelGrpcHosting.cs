@@ -11,9 +11,9 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Analogy.LogViewer.OpenTelemetryCollector.Otel
 {
-    internal static class OtelGrpcHosting
+    public static class OtelGrpcHosting
     {
-        private static CancellationTokenSource _cts;
+        private static CancellationTokenSource _cts = new();
         private static IHost? _hoster;
         private static Task hostingTask;
         private static bool Connected { get; set; }
