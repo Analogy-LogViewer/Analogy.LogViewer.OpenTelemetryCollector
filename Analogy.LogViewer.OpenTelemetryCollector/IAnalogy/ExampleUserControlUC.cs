@@ -23,7 +23,7 @@ namespace Analogy.LogViewer.OpenTelemetryCollector.IAnalogy
 
         private void btnGneratorShow_Click(object sender, EventArgs e)
         {
-            p.StartPlotting();
+            p.StartPlotting(this);
         }
 
         private void btnGeneratorHide_Click(object sender, EventArgs e)

@@ -18,12 +18,13 @@ namespace Analogy.LogViewer.OpenTelemetryCollector.IAnalogy
         public Guid Id { get; } = id;
         public event EventHandler<(Guid Id, IEnumerable<AnalogyPlottingPointData> PointsData)> OnNewPointsData;
         private bool enable;
+        private UserControl UI;
         private IAnalogyOnDemandPlottingInteractor Interactor { get; set; }
         public Task InitializeOnDemandPlotting(IAnalogyOnDemandPlottingInteractor onDemandPlottingInteractor, ILogger logger)
         {
             LogManager.Instance.SetLogger(logger);
             Interactor = onDemandPlottingInteractor;
-#if NET            
+#if NET
             Otel.MetricReporter.Instance.NewMetric += (s, e) =>
             {
                 if (!enable)
@@ -33,7 +34,6 @@ namespace Analogy.LogViewer.OpenTelemetryCollector.IAnalogy
                 var key = Types.Utils.GetServiceNameFromMetricResource(e.ResourceMetric);
                 if (source.Equals(key) && e.Metric.Name.Equals(MetricName))
                 {
-                    var now = DateTimeOffset.Now;
                     switch (e.Metric.DataCase)
                     {
                         case OpenTelemetry.Proto.Metrics.V1.Metric.DataOneofCase.None:
@@ -45,14 +45,26 @@ namespace Analogy.LogViewer.OpenTelemetryCollector.IAnalogy
                             {
                                 if (val.HasAsDouble)
                                 {
-                                    AnalogyPlottingPointData d = new AnalogyPlottingPointData(MetricName, val.AsDouble, now);
+                                    var unixTimeMilliseconds = val.TimeUnixNano / 1_000_000;
+                                    var time = DateTimeOffset.FromUnixTimeMilliseconds((long)unixTimeMilliseconds);
+                                    AnalogyPlottingPointData d = new AnalogyPlottingPointData(MetricName, val.AsDouble, time);
                                     list.Add(d);
                                 }
                             }
 
                             if (list.Any())
                             {
-                                OnNewPointsData?.Invoke(this, (Id, list));
+                                if (UI.InvokeRequired)
+                                {
+                                    UI.Invoke(new MethodInvoker(() =>
+                                    {
+                                        OnNewPointsData?.Invoke(this, (Id, list));
+                                    }));
+                                }
+                                else
+                                {
+                                    OnNewPointsData?.Invoke(this, (Id, list));
+                                }
                             }
 
                             break;
@@ -72,9 +84,12 @@ namespace Analogy.LogViewer.OpenTelemetryCollector.IAnalogy
 #endif
             return Task.CompletedTask;
         }
-        private double GenerateValue(double x) { return Math.Sin(x / 1000.0) * 3 * x + x / 2 + 5; }
 
-        public void StartPlotting() => enable = true;
+        public void StartPlotting(UserControl ui)
+        {
+            UI = ui;
+            enable = true;
+        }
 
         public void StopPlotting() => enable = false;
 
