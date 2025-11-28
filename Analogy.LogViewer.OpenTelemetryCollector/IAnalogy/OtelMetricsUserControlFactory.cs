@@ -25,6 +25,9 @@ namespace Analogy.LogViewer.OpenTelemetryCollector.IAnalogy
     {
         public Task InitializeUserControl(Control hostingControl, ILogger logger)
         {
+#if NET
+            Analogy.LogViewer.OpenTelemetryCollector.Otel.OtelGrpcHosting.InitializeIfNeeded();
+#endif
             return Task.CompletedTask;
         }
 
@@ -34,10 +37,10 @@ namespace Analogy.LogViewer.OpenTelemetryCollector.IAnalogy
         }
 
         public UserControl UserControl => new ExampleUserControlUC();
-        public Guid Id { get; set; } = new Guid("ec1264aa-d503-4888-9772-572faa3f9a0c");
+        public Guid Id { get; set; } = new Guid("afa58e94-db5b-461e-982c-a3802e291b37");
         public Image? SmallImage { get; set; }
         public Image? LargeImage { get; set; }
-        public string Title { get; set; } = "Otelp Metric User Control";
+        public string Title { get; set; } = "Otel Metrics Viewer";
         public AnalogyToolTipWithImages? ToolTip { get; set; }
     }
 }

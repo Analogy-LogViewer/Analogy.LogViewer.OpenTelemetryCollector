@@ -22,6 +22,7 @@ namespace Analogy.LogViewer.OpenTelemetryCollector.Otel
         {
             if (_hoster is null)
             {
+                MetricsManager.Instance.InitializeIfNeeded();
                 _hoster = CreateHostBuilder().Build();
                 hostingTask = _hoster.StartAsync(_cts.Token);
                 Connected = true;

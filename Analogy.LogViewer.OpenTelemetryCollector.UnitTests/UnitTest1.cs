@@ -1,4 +1,5 @@
 using Analogy.Interfaces.DataTypes;
+using Analogy.LogViewer.OpenTelemetryCollector.Types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Analogy.LogViewer.OpenTelemetryCollector.UnitTests
             Analogy.LogViewer.OpenTelemetryCollector.Otel.OtelGrpcHosting.InitializeIfNeeded();
             Analogy.LogViewer.OpenTelemetryCollector.Otel.MetricReporter.Instance.NewMetric += (s, e) =>
             {
-                var service = e.ResourceMetric.Resource.Attributes.FirstOrDefault(a => a.Key.Equals("service.name"));
+                var key = Utils.GetServiceNameFromMetricResource(e.ResourceMetric);
                 AnalogyLogMessage m = new AnalogyLogMessage
                 {
                     Text = e.ToString(),
@@ -26,7 +27,7 @@ namespace Analogy.LogViewer.OpenTelemetryCollector.UnitTests
                     Class = AnalogyLogClass.General,
                     Source = e.Metric.Description,
                     User = Environment.UserName,
-                    Module = service?.Value.StringValue ?? "",
+                    Module = key,
                     MachineName = Environment.MachineName,
                     ThreadId = Thread.CurrentThread.ManagedThreadId,
                 };

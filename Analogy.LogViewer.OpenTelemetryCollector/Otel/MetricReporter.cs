@@ -13,10 +13,7 @@ namespace Analogy.LogViewer.OpenTelemetryCollector.Otel
 
         public static MetricReporter Instance { get; } = _instance.Value;
 
-        public event EventHandler<(ResourceMetrics ResourceMetric, ScopeMetrics ScopeMetric, Metric Metric)> NewMetric;
-        public event EventHandler<AnalogyLogMessageArgs> OnMessageReady;
-        public event EventHandler<AnalogyLogMessagesArgs> OnManyMessagesReady;
-
+        public event EventHandler<(ResourceMetrics ResourceMetric, ScopeMetrics ScopeMetric, Metric Metric)>? NewMetric;
 
         public void RaiseNewMetric(ResourceMetrics resourceMetric, ScopeMetrics scopeMetric, Metric metric)
         {

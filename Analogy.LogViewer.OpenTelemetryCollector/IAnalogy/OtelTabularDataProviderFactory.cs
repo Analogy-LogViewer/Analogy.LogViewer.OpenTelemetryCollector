@@ -12,6 +12,7 @@ namespace Analogy.LogViewer.OpenTelemetryCollector.IAnalogy
 
         public override IEnumerable<IAnalogyDataProvider> DataProviders { get; set; } = new List<IAnalogyDataProvider>
         {
+            new OtelLogsOnlineDataProvider(),
             new OtelMetricsOnlineDataProvider(),
         };
     }

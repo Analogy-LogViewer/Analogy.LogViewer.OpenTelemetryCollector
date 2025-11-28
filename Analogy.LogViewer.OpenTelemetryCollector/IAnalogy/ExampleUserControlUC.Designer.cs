@@ -29,98 +29,137 @@ namespace Analogy.LogViewer.OpenTelemetryCollector.IAnalogy
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnGenerator = new System.Windows.Forms.Button();
-            this.btnGeneratorHide = new System.Windows.Forms.Button();
-            this.btnGneratorShow = new System.Windows.Forms.Button();
-            this.btnStopPlotting = new System.Windows.Forms.Button();
-            this.btnShowPlot = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            lblMetric = new System.Windows.Forms.Label();
+            btnGenerator = new System.Windows.Forms.Button();
+            btnGeneratorHide = new System.Windows.Forms.Button();
+            btnGneratorShow = new System.Windows.Forms.Button();
+            btnStopPlotting = new System.Windows.Forms.Button();
+            btnShowPlot = new System.Windows.Forms.Button();
+            treeViewMetrics = new System.Windows.Forms.TreeView();
+            BtnRefresh = new System.Windows.Forms.Button();
+            panel1 = new System.Windows.Forms.Panel();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
-            // label1
+            // lblMetric
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Empty label";
+            lblMetric.Dock = System.Windows.Forms.DockStyle.Top;
+            lblMetric.Location = new System.Drawing.Point(0, 0);
+            lblMetric.Name = "lblMetric";
+            lblMetric.Size = new System.Drawing.Size(501, 20);
+            lblMetric.TabIndex = 0;
+            lblMetric.Text = "Select Metric:";
             // 
             // btnGenerator
             // 
-            this.btnGenerator.Location = new System.Drawing.Point(12, 62);
-            this.btnGenerator.Name = "btnGenerator";
-            this.btnGenerator.Size = new System.Drawing.Size(131, 29);
-            this.btnGenerator.TabIndex = 8;
-            this.btnGenerator.Text = "Create Plot";
-            this.btnGenerator.UseVisualStyleBackColor = true;
-            this.btnGenerator.Click += new System.EventHandler(this.btnGenerator_Click);
+            btnGenerator.Enabled = false;
+            btnGenerator.Location = new System.Drawing.Point(530, 20);
+            btnGenerator.Name = "btnGenerator";
+            btnGenerator.Size = new System.Drawing.Size(131, 29);
+            btnGenerator.TabIndex = 8;
+            btnGenerator.Text = "Create Plot";
+            btnGenerator.UseVisualStyleBackColor = true;
+            btnGenerator.Click += btnGenerator_Click;
             // 
             // btnGeneratorHide
             // 
-            this.btnGeneratorHide.Location = new System.Drawing.Point(12, 132);
-            this.btnGeneratorHide.Name = "btnGeneratorHide";
-            this.btnGeneratorHide.Size = new System.Drawing.Size(131, 29);
-            this.btnGeneratorHide.TabIndex = 7;
-            this.btnGeneratorHide.Text = "Hide plot";
-            this.btnGeneratorHide.UseVisualStyleBackColor = true;
-            this.btnGeneratorHide.Click += new System.EventHandler(this.btnGeneratorHide_Click);
+            btnGeneratorHide.Location = new System.Drawing.Point(530, 90);
+            btnGeneratorHide.Name = "btnGeneratorHide";
+            btnGeneratorHide.Size = new System.Drawing.Size(131, 29);
+            btnGeneratorHide.TabIndex = 7;
+            btnGeneratorHide.Text = "Hide plot";
+            btnGeneratorHide.UseVisualStyleBackColor = true;
+            btnGeneratorHide.Click += btnGeneratorHide_Click;
             // 
             // btnGneratorShow
             // 
-            this.btnGneratorShow.Location = new System.Drawing.Point(12, 200);
-            this.btnGneratorShow.Name = "btnGneratorShow";
-            this.btnGneratorShow.Size = new System.Drawing.Size(131, 29);
-            this.btnGneratorShow.TabIndex = 6;
-            this.btnGneratorShow.Text = "start plotting";
-            this.btnGneratorShow.UseVisualStyleBackColor = true;
-            this.btnGneratorShow.Click += new System.EventHandler(this.btnGneratorShow_Click);
+            btnGneratorShow.Location = new System.Drawing.Point(530, 158);
+            btnGneratorShow.Name = "btnGneratorShow";
+            btnGneratorShow.Size = new System.Drawing.Size(131, 29);
+            btnGneratorShow.TabIndex = 6;
+            btnGneratorShow.Text = "start plotting";
+            btnGneratorShow.UseVisualStyleBackColor = true;
+            btnGneratorShow.Click += btnGneratorShow_Click;
             // 
             // btnStopPlotting
             // 
-            this.btnStopPlotting.Location = new System.Drawing.Point(12, 235);
-            this.btnStopPlotting.Name = "btnStopPlotting";
-            this.btnStopPlotting.Size = new System.Drawing.Size(131, 29);
-            this.btnStopPlotting.TabIndex = 9;
-            this.btnStopPlotting.Text = "stop plotting";
-            this.btnStopPlotting.UseVisualStyleBackColor = true;
-            this.btnStopPlotting.Click += new System.EventHandler(this.btnStopPlotting_Click);
+            btnStopPlotting.Location = new System.Drawing.Point(530, 193);
+            btnStopPlotting.Name = "btnStopPlotting";
+            btnStopPlotting.Size = new System.Drawing.Size(131, 29);
+            btnStopPlotting.TabIndex = 9;
+            btnStopPlotting.Text = "stop plotting";
+            btnStopPlotting.UseVisualStyleBackColor = true;
+            btnStopPlotting.Click += btnStopPlotting_Click;
             // 
             // btnShowPlot
             // 
-            this.btnShowPlot.Location = new System.Drawing.Point(12, 97);
-            this.btnShowPlot.Name = "btnShowPlot";
-            this.btnShowPlot.Size = new System.Drawing.Size(131, 29);
-            this.btnShowPlot.TabIndex = 10;
-            this.btnShowPlot.Text = "Show Plot";
-            this.btnShowPlot.UseVisualStyleBackColor = true;
-            this.btnShowPlot.Click += new System.EventHandler(this.btnShowPlot_Click);
+            btnShowPlot.Location = new System.Drawing.Point(530, 55);
+            btnShowPlot.Name = "btnShowPlot";
+            btnShowPlot.Size = new System.Drawing.Size(131, 29);
+            btnShowPlot.TabIndex = 10;
+            btnShowPlot.Text = "Show Plot";
+            btnShowPlot.UseVisualStyleBackColor = true;
+            btnShowPlot.Click += btnShowPlot_Click;
+            // 
+            // treeViewMetrics
+            // 
+            treeViewMetrics.Dock = System.Windows.Forms.DockStyle.Fill;
+            treeViewMetrics.Location = new System.Drawing.Point(0, 20);
+            treeViewMetrics.Name = "treeViewMetrics";
+            treeViewMetrics.Size = new System.Drawing.Size(501, 340);
+            treeViewMetrics.TabIndex = 11;
+            treeViewMetrics.AfterSelect += treeViewMetrics_AfterSelect;
+            // 
+            // BtnRefresh
+            // 
+            BtnRefresh.Dock = System.Windows.Forms.DockStyle.Bottom;
+            BtnRefresh.Location = new System.Drawing.Point(0, 360);
+            BtnRefresh.Name = "BtnRefresh";
+            BtnRefresh.Size = new System.Drawing.Size(501, 29);
+            BtnRefresh.TabIndex = 12;
+            BtnRefresh.Text = "Refresh List";
+            BtnRefresh.UseVisualStyleBackColor = true;
+            BtnRefresh.Click += BtnRefresh_Click;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(treeViewMetrics);
+            panel1.Controls.Add(BtnRefresh);
+            panel1.Controls.Add(lblMetric);
+            panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            panel1.Location = new System.Drawing.Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(501, 389);
+            panel1.TabIndex = 13;
             // 
             // ExampleUserControlUC
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnShowPlot);
-            this.Controls.Add(this.btnStopPlotting);
-            this.Controls.Add(this.btnGenerator);
-            this.Controls.Add(this.btnGeneratorHide);
-            this.Controls.Add(this.btnGneratorShow);
-            this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "ExampleUserControlUC";
-            this.Size = new System.Drawing.Size(711, 562);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(panel1);
+            Controls.Add(btnShowPlot);
+            Controls.Add(btnStopPlotting);
+            Controls.Add(btnGenerator);
+            Controls.Add(btnGeneratorHide);
+            Controls.Add(btnGneratorShow);
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            Name = "ExampleUserControlUC";
+            Size = new System.Drawing.Size(940, 389);
+            panel1.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblMetric;
         private System.Windows.Forms.Button btnGenerator;
         private System.Windows.Forms.Button btnGeneratorHide;
         private System.Windows.Forms.Button btnGneratorShow;
         private System.Windows.Forms.Button btnStopPlotting;
         private System.Windows.Forms.Button btnShowPlot;
+        private System.Windows.Forms.TreeView treeViewMetrics;
+        private System.Windows.Forms.Button BtnRefresh;
+        private System.Windows.Forms.Panel panel1;
     }
 }
